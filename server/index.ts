@@ -1,10 +1,11 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { serveStatic } from "hono/bun";
 
 const app = new Hono();
 const RSS_URL = process.env.RSS_URL;
 
-app.use("*", cors());
+app.use("/api/*", cors());
 
 app.get("/health", c => {
   return c.json({
@@ -14,34 +15,21 @@ app.get("/health", c => {
   });
 });
 
-interface FeedErrorResponse {
-  error: string;
-}
-
-interface HealthResponse {
-  ok: boolean;
-  rssConfigured: boolean;
-  rssUrl: string;
-}
-
-app.get("/api/feed", async (c: import("hono").Context): Promise<Response> => {
+app.get("/api/feed", async c => {
   if (!RSS_URL) {
-    console.error("RSS_URL is not set — check server/.env");
-    const errorResponse: FeedErrorResponse = { error: "RSS_URL not set in .env" };
-    return c.json(errorResponse, 500);
+    console.error("RSS_URL is not set");
+    return c.json({ error: "RSS_URL not set" }, 500);
   }
 
   try {
-    console.log(`Fetching RSS: ${RSS_URL}`);
-    const upstream: Response = await fetch(RSS_URL, {
+    const upstream = await fetch(RSS_URL, {
       headers: { "User-Agent": "TYT-Site/1.0" },
     });
     if (!upstream.ok) {
-      const body: string = await upstream.text();
+      const body = await upstream.text();
       throw new Error(`rss.app ${upstream.status}: ${body.slice(0, 200)}`);
     }
-    const xml: string = await upstream.text();
-    console.log(`RSS OK — ${xml.length} bytes`);
+    const xml = await upstream.text();
     return new Response(xml, {
       headers: {
         "Content-Type": "application/xml",
@@ -50,10 +38,13 @@ app.get("/api/feed", async (c: import("hono").Context): Promise<Response> => {
     });
   } catch (err: any) {
     console.error("Feed error:", err.message);
-    const errorResponse: FeedErrorResponse = { error: err.message };
-    return c.json(errorResponse, 502);
+    return c.json({ error: err.message }, 502);
   }
 });
+
+app.use("*", serveStatic({ root: "./dist" }));
+
+app.get("*", serveStatic({ path: "./dist/index.html" }));
 
 const PORT = Number(process.env.PORT) || 3001;
 
@@ -62,5 +53,5 @@ export default {
   fetch: app.fetch,
 };
 
-console.log(`Proxy running on http://localhost:${PORT}`);
-console.log(`RSS_URL: ${RSS_URL ?? "NOT SET — check server/.env"}`);
+console.log(`Server running on http://localhost:${PORT}`);
+console.log(`RSS_URL: ${RSS_URL ?? "⚠️  NOT SET"}`);

@@ -11,7 +11,7 @@ export interface FeedPost {
 type Status = "loading" | "ok" | "error";
 
 const POLL_INTERVAL = 5 * 60 * 1000;
-const API_URL = import.meta.env.VITE_PROXY_URL ?? "http://localhost:3001";
+const API_URL = import.meta.env.VITE_PROXY_URL ?? "";
 
 function parseRSS(xml: string): FeedPost[] {
   const doc = new DOMParser().parseFromString(xml, "application/xml");
