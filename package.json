@@ -1,0 +1,13 @@
+{
+  "name": "tyt-site",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n server,client \"bun run dev:server\" \"bun run dev:client\"",
+    "dev:server": "cd server && bun --watch index.ts",
+    "dev:client": "cd frontend && bun run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

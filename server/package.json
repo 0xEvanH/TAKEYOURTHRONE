@@ -1,0 +1,12 @@
+{
+  "name": "tyt-proxy",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch index.ts",
+    "start": "bun index.ts"
+  },
+  "dependencies": {
+    "hono": "^4.4.0"
+  }
+}
