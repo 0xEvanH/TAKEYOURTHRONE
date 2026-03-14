@@ -54,4 +54,4 @@ export default {
 };
 
 console.log(`Server running on http://localhost:${PORT}`);
-console.log(`RSS_URL: ${RSS_URL ?? "⚠️  NOT SET"}`);
+console.log(`RSS_URL: ${RSS_URL ?? "NOT SET"}`);
