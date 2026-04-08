@@ -7,6 +7,7 @@ import { SectionLabel, Ticker, PlatformIcon } from "./UI";
 import { Footer } from "./Footer";
 import { useFeed, timeAgo } from "../hooks/UseFeed";
 import video from "/video.mp4";
+import useSEO from "../hooks/useSEO";
 
 const gridPattern = `linear-gradient(${GOLD_A(0.045)} 1px,transparent 1px),linear-gradient(90deg,${GOLD_A(0.045)} 1px,transparent 1px)`;
 
@@ -286,6 +287,13 @@ function MerchCTA() {
 }
 
 export function HomePage() {
+  useSEO({
+      title: "Home",
+      description:
+        "TAKE YOUR THRONE - the ultimate competitive gaming experience.",
+      url: "/",
+    });
+
   return (
     <div>
       <Hero />

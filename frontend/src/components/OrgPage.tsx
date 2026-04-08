@@ -4,12 +4,20 @@ import { GOLD, GOLD_A } from "../constants";
 import { STAFF } from "../data";
 import { PageHero } from "./UI";
 import { Footer } from "./Footer";
+import useSEO from "../hooks/useSEO";
 
 const CARD_WIDTH = 380;
 const CARD_GAP = 16;
 const CARD_STRIDE = CARD_WIDTH + CARD_GAP;
 
 export function OrgPage() {
+  useSEO({
+    title: "Organisation",
+    description:
+      "TAKE YOUR THRONE organisation - our dedicated and passionate team behind the scenes, driving our mission to be the best in competitive gaming.",
+    url: "/org",
+  });
+
   const trackRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const [activeIndex, setActiveIndex] = useState(0);

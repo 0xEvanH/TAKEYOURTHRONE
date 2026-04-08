@@ -4,10 +4,18 @@ import { GOLD } from "../constants";
 import { SHOP_PRODUCTS, type Product } from "../data";
 import { PageHero } from "./UI";
 import { Footer } from "./Footer";
+import useSEO from "../hooks/useSEO";
 
 const categories = ["ALL", "JERSEYS", "APPAREL", "ACCESSORIES"];
 
 export function ShopPage() {
+  useSEO({
+    title: "Shop",
+    description:
+      "TAKE YOUR THRONE shop - official merchandise for our competitive teams.",
+    url: "/shop",
+  });
+
   const [filter, setFilter] = useState("ALL");
   const gridRef = useRef<HTMLDivElement>(null);
   const gridVisible = useInView(gridRef, { once: true });

@@ -4,6 +4,7 @@ import { GOLD, GOLD_A } from "../constants";
 import { DIVISIONS, type Player, type Division } from "../data";
 import { PageHero, SectionLabel } from "./UI";
 import { Footer } from "./Footer";
+import useSEO from "../hooks/useSEO";
 
 function FortniteRow({ p, i }: { p: Player; i: number }) {
   const [hovered, setHovered] = useState(false);
@@ -133,6 +134,13 @@ function SiegeRoster({ div }: { div: Division }) {
 }
 
 export function TeamsPage() {
+  useSEO({
+    title: "Teams",
+    description:
+      "TAKE YOUR THRONE teams - our competitive Fortnite and Rainbow Six Siege rosters, player bios, stats, and achievements.",
+    url: "/teams",
+  });
+  
   const [activeDiv, setActiveDiv] = useState(DIVISIONS[0].id);
   const div = DIVISIONS.find(d => d.id === activeDiv)!;
 

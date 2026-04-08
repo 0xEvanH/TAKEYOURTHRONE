@@ -5,6 +5,7 @@ import { useFeed, timeAgo, type FeedPost } from "../hooks/UseFeed";
 import { PageHero } from "./UI";
 import { Footer } from "./Footer";
 import { SiX } from "react-icons/si";
+import useSEO from "../hooks/useSEO";
 
 function Skeleton() {
   return (
@@ -85,6 +86,13 @@ function PostCard({ post, i, visible }: { post: FeedPost; i: number; visible: bo
 }
 
 export function NewsPage() {
+  useSEO({
+      title: "News",
+      description:
+        "TAKE YOUR THRONE news - the latest updates and announcements from our competitive teams.",
+      url: "/news",
+    });
+
   const gridRef = useRef<HTMLDivElement>(null);
   const gridVisible = useInView(gridRef, { once: true });
   const { posts, status, fetchedAt, refresh } = useFeed();

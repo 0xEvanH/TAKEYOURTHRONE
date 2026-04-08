@@ -1,13 +1,102 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TAKE YOUR THRONE</title>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TYT ESPORTS — Base SEO (static fallback / pre-render)
+         Dynamic overrides applied per-route via <SEO /> component
+    ═══════════════════════════════════════════════════════════ -->
+
+    <!-- Primary Meta Tags -->
+    <title>Take Your Throne Esports</title>
+    <meta name="title" content="Take Your Throne Esports" />
+    <meta
+      name="description"
+      content="Take Your Throne Esports is a multi-media esports & gaming team. Competing, creating, and building community since 2025. Powered by Paragon Tweaks."
+    />
+    <meta
+      name="keywords"
+      content="Take Your Throne, TYT, gaming team, esports, Fortnite, FNCS, Siege, R6, Rainbow Six Siege, tournament, competitive gaming, multi-media gaming, TYT Esports"
+    />
+    <meta name="author" content="Take Your Throne Esports" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0ff" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://takeyourthrone.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://takeyourthrone.com/" />
+    <meta property="og:site_name" content="Take Your Throne Esports" />
+    <meta property="og:title" content="Take Your Throne Esports - Multi-Media Gaming Team" />
+    <meta
+      property="og:description"
+      content="Take Your Throne Esports is a multi-media esports & gaming team. Competing, creating, and building community since 2025."
+    />
+    <meta property="og:image" content="https://takeyourthrone.com/tytogg.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@tyt_esport" />
+    <meta name="twitter:creator" content="@tyt_esport" />
+    <meta name="twitter:url" content="https://takeyourthrone.com/" />
+    <meta name="twitter:title" content="Take Your Throne Esports - Multi-Media Gaming Team" />
+    <meta
+      name="twitter:description"
+      content="Take Your Throne Esports is a multi-media esports & gaming team. Competing, creating, and building community since 2025."
+    />
+    <meta name="twitter:image" content="https://takeyourthrone.com/tytogg.png" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://takeyourthrone.com/#organization",
+          "name": "Take Your Throne Esports",
+          "alternateName": ["Oce5n", "OCE5NS", "The71Percent"],
+          "url": "https://takeyourthrone.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://takeyourthrone.com/og-image.png"
+          },
+          "description": "Multi-Media Gaming Team based in Columbus, Ohio. Competing and creating since 2025. Powered by SocialSight, Hypertune & Sonix.",
+          "foundingDate": "2025",
+          "location": {
+            "@type": "Place",
+            "name": "Columbus, Ohio, USA"
+          },
+          "sameAs": [
+            "https://twitter.com/TYT_Esport",
+            "https://takeyourthrone.com"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://takeyourthrone.com/#website",
+          "url": "https://takeyourthrone.com",
+          "name": "Take Your Throne Esports",
+          "publisher": { "@id": "https://takeyourthrone.com/#organization" }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Favicon / App Icons -->
+    <link rel="icon" type="image/png" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

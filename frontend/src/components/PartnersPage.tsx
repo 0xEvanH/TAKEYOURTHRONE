@@ -5,6 +5,7 @@ import { PARTNER_TIERS } from "../data";
 import { PageHero, SectionLabel } from "./UI";
 import { Footer } from "./Footer";
 import latency from "/paragon.jpg";
+import useSEO from "../hooks/useSEO";
 
 const allPartners = PARTNER_TIERS.flatMap(tier =>
   tier.partners.map(p => ({ ...p, tier: tier.tier, tierColor: tier.color }))
@@ -16,6 +17,13 @@ const topBorderColor = (tier: string) =>
       "rgba(255,255,255,0.07)";
 
 export function PartnersPage() {
+  useSEO({
+    title: "Partners",
+    description:
+      "TAKE YOUR THRONE partners - our collaborative relationships with the best in gaming, technology, and performance.",
+    url: "/partners",
+  });
+
   const rowRef = useRef<HTMLDivElement>(null);
   const rowVisible = useInView(rowRef, { once: true, margin: "-80px" });
 

@@ -10,7 +10,7 @@ interface SEOProps {
 
 const SITE_NAME  = 'TYT Esports';
 const BASE_URL   = 'https://takeyourthrone.com';
-const DEFAULT_DESC = 'TYT - Professional esports organisation competing in Fortnite and Valorant. Est. 2025.';
+const DEFAULT_DESC = 'TYT - Professional esports organisation competing in Fortnite and Rainbow Six Siege. Est. 2025.';
 const DEFAULT_IMG  = `${BASE_URL}/og-image.jpg`;
 
 const setMeta = (name: string, content: string, attr = 'name') => {
@@ -43,7 +43,7 @@ const useSEO = ({ title, description, url, image, type = 'website' }: SEOProps =
     setMeta('og:site_name',        SITE_NAME,   'property');
 
     setMeta('twitter:card',        'summary_large_image');
-    setMeta('twitter:site',        '@OCE5NS');
+    setMeta('twitter:site',        '@tyt_esport');
     setMeta('twitter:title',       fullTitle);
     setMeta('twitter:description', desc);
     setMeta('twitter:image',       img);

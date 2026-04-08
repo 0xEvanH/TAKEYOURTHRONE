@@ -1,0 +1,17 @@
+# =============================================
+# TYT Esports — robots.txt
+# https://takeyourthone.com
+# =============================================
+
+User-agent: *
+Allow: /
+
+# Block internal/utility paths from indexing
+Disallow: /admin/
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /_next/
+Disallow: /static/chunks/
+
+# Sitemap location
+Sitemap: https://takeyourthone.com/sitemap.xml

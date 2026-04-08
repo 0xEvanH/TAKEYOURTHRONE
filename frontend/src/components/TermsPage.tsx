@@ -49,7 +49,7 @@ const TermsPage = () => {
   useSEO({
     title: "Terms of Service",
     description:
-      "TAKE YOUR THRONE terms of service — rules governing use of the platform.",
+      "TAKE YOUR THRONE terms of service - rules governing use of the platform.",
     url: "/terms",
   });
 

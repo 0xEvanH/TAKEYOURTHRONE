@@ -50,7 +50,7 @@ const PrivacyPage = () => {
   useSEO({
     title: "Privacy Policy",
     description:
-      "TAKE YOUR THRONE privacy policy — how we collect, use and protect your data.",
+      "TAKE YOUR THRONE privacy policy - how we collect, use and protect your data.",
     url: "/privacy",
   });
 
