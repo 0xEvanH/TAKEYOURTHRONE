@@ -9,6 +9,10 @@ import { OrgPage } from "./components/OrgPage";
 import { NewsPage } from "./components/NewsPage";
 import { ShopPage } from "./components/ShopPage";
 import { PartnersPage } from "./components/PartnersPage";
+import PrivacyPage from "./components/PrivacyPage";
+import TermsPage from "./components/TermsPage";
+import { NotFoundPage } from "./components/NotFoundPage";
+
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -55,6 +59,9 @@ function Layout() {
             <Route path="/news" element={<NewsPage />} />
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/partners" element={<PartnersPage />} />
+            <Route path="/privacy"  element={<PrivacyPage />}  />
+            <Route path="/terms"    element={<TermsPage />}    />
+            <Route path="*"         element={<NotFoundPage />} />
           </Routes>
         </motion.div>
       </AnimatePresence>

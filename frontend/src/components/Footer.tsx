@@ -1,23 +1,20 @@
 import { GOLD } from "../constants";
-import type { PageName } from "../data";
 import { LogoMark } from "./UI";
 import { SiX } from "react-icons/si";
+import { Link } from "react-router-dom";
 
-interface FooterProps {
-  setPage?: (p: PageName) => void;
-}
-
-const navCols: { title: string; items: [string, PageName | null][] }[] = [
-  { title: "NAVIGATE", items: [["Home", "home"], ["Teams", "teams"], ["News", "news"], ["Shop", "shop"], ["Partners", "partners"]] },
-  { title: "FOLLOW", items: [["X / @tyt_esport", null], ]},
-  { title: "CONTACT", items: [["TYTgaming2025@gmail.com", null]]},
+const navCols: { title: string; items: [string, string | null][] }[] = [
+  { title: "NAVIGATE", items: [["Home", "/"], ["Teams", "/teams"], ["News", "/news"], ["Shop", "/shop"], ["Partners", "/partners"]] },
+  { title: "FOLLOW", items: [["X / @tyt_esport", "https://x.com/tyt_esport"],] },
+  { title: "CONTACT", items: [["TYTgaming2025@gmail.com", "mailto:TYTgaming2025@gmail.com"]] },
+  { title: "LEGAL", items: [["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"]] },
 ];
 
 const socials = [
   { icon: SiX, url: "https://x.com/tyt_esport" },
 ];
 
-export function Footer({ setPage }: FooterProps) {
+export function Footer() {
   return (
     <footer style={{ background: "#060606", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "64px 80px 32px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 48, flexWrap: "wrap", marginBottom: 48 }}>
@@ -27,7 +24,7 @@ export function Footer({ setPage }: FooterProps) {
             <div className="fd" style={{ color: "#fff", fontWeight: 700, fontSize: 16, letterSpacing: "0.1em" }}>TAKE YOUR THRONE</div>
           </div>
           <p className="fb" style={{ color: "rgba(255,255,255,0.3)", fontSize: 12, lineHeight: 1.7 }}>
-            Professional esports organisation. <br/> Putting the Crown on eSports since 2025. <br/> "HONORA VINCENTIUM"
+            Professional Esports organisation. <br /> Putting the Crown on Esports since 2025. <br /> "HONORA VINCENTIUM"
           </p>
           <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
             {socials.map(({ icon: Icon, url }, i) => (
@@ -71,18 +68,18 @@ export function Footer({ setPage }: FooterProps) {
                 {col.title}
               </div>
               <ul style={{ listStyle: "none" }}>
-                {col.items.map(([label, page]) => (
+                {col.items.map(([label, path]) => (
                   <li key={label} style={{ marginBottom: 7 }}>
-                    {page && setPage ? (
-                      <button
-                        onClick={() => setPage(page)}
+                    {path ? (
+                      <Link
+                        to={path}
                         className="fb"
-                        style={{ color: "rgba(255,255,255,0.3)", background: "transparent", border: 0, cursor: "pointer", padding: 0, fontSize: 11.5, transition: "color 0.2s" }}
-                        onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "#fff"; }}
-                        onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.3)"; }}
+                        style={{ color: "rgba(255,255,255,0.3)", fontSize: 11.5, textDecoration: "none", transition: "color 0.2s" }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#fff"; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.3)"; }}
                       >
                         {label}
-                      </button>
+                      </Link>
                     ) : (
                       <span className="fb" style={{ color: "rgba(255,255,255,0.3)", fontSize: 11.5 }}>{label}</span>
                     )}

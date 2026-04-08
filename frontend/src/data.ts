@@ -1,6 +1,15 @@
 import { GOLD } from "./constants";
 
-export type PageName = "home" | "teams" | "news" | "shop" | "partners" | "org";
+export type PageName = "home" | "teams" | "news" | "shop" | "partners" | "org" | "privacy" | "terms";
+
+import kronos from "/pfps/kronos.jpg";
+import shortcake from "/pfps/shortcake.jpg";
+import zyko from "/pfps/zyko.jpg";
+import pxr from "/pfps/pxr.png";
+import cellar from "/pfps/cellar.jpg";
+import kaden from "/pfps/kaden.jpg";
+import blxst from "/pfps/blxst.jpg";
+import cruz from "/pfps/cruz.jpg";
 
 export interface Player {
   num: string;
@@ -34,6 +43,7 @@ export interface StaffMember {
   id: number;
   name: string;
   role: string;
+  icon: any;
 }
 
 export interface Product {
@@ -43,7 +53,7 @@ export interface Product {
   price: string;
   img: string;
   badge: string | null;
-  colors: string[];
+  url: string;
 }
 
 export interface Partner {
@@ -51,6 +61,7 @@ export interface Partner {
   desc: string;
   since: string;
   logo: string;
+  url: string;
 }
 
 export interface PartnerTier {
@@ -125,26 +136,55 @@ export const DIVISIONS: Division[] = [
 ];
 
 export const STAFF: StaffMember[] = [
-  { id: 1, name: "KRONOS", role: "Founder" },
-  { id: 2, name: "Shortcake", role: "Owner" },
-  { id: 3, name: "Kaden", role: "Future Team Owner" },
-  { id: 4, name: "Cellar", role: "Future Team Owner" },
-  { id: 5, name: "Zyko", role: "Chief of Staff" },
-  { id: 6, name: "Blxst", role: "Recruiters/Management" },
-  { id: 7, name: "Cruz", role: "Recruiters/Management" },
-  { id: 8, name: "Flixy", role: "Recruiters/Management" },
-  { id: 9, name: "Rodri", role: "Recruiters/Management" },
-  { id: 10, name: "Jared6k", role: "Recruiters/Management" },
+  { id: 1, name: "KRONOS", role: "Founder", icon: kronos },
+  { id: 2, name: "Shortcake", role: "Owner", icon: shortcake },
+  { id: 3, name: "Zyko", role: "Owner", icon: zyko },
+  { id: 4, name: "Pxr", role: "Board of Directors", icon: pxr },
+  { id: 5, name: "Cellar", role: "Future Team Owner", icon: cellar },
+  { id: 6, name: "Kaden", role: "Future Team Owner", icon: kaden },
+  { id: 7, name: "Blxst", role: "Recruiters/Management", icon: blxst },
+  { id: 8, name: "Cruz", role: "Recruiters/Management", icon: cruz },
+  { id: 9, name: "Flixy", role: "Recruiters/Management", icon: null },
+  { id: 10, name: "Rodri", role: "Recruiters/Management", icon: null },
+  { id: 11, name: "Jared6k", role: "Recruiters/Management", icon: null },
 ];
 
-export const SHOP_PRODUCTS: Product[] = [];
+export const SHOP_PRODUCTS: Product[] = [
+  {
+    id: 1,
+    name: "Take Your Throne 2026 Jersey",
+    category: "JERSEYS",
+    price: "$55.00",
+    img: "/tytjersey.png",
+    badge: "Best Seller",
+    url: "https://tytapparel.store/products/take-your-throne-2026-jersey?variant=48643830710501",
+  },
+  {
+    id: 2,
+    name: "Throne Tee",
+    category: "APPAREL",
+    price: "$40.00",
+    img: "/thronetee.png",
+    badge: "",
+    url: "https://tytapparel.store/products/throne-tee?variant=48643863412965",
+  },
+  {
+    id: 3,
+    name: "Send Tee",
+    category: "APPAREL",
+    price: "$35.00",
+    img: "/sendtee.png",
+    badge: "",
+    url: "https://tytapparel.store/products/send-tee?variant=48643848012005",
+  },
+];
 
 export const PARTNER_TIERS: PartnerTier[] = [
   {
     tier: "TITLE PARTNER",
     color: GOLD,
     partners: [
-      { name: "LATENNCY TWEAKS", desc: "Official tweaking partner. Powering every clutch moment.", since: "2026", logo: "LT" },
+      { name: "PARAGON TWEAKS", desc: "Official tweaking partner. Powering every clutch moment.", since: "2026", logo: "PT", url: "https://paragontweaks.net/utilities?ref=TYT26" },
     ],
   },
 ];

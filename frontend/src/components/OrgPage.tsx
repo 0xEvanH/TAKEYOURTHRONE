@@ -136,16 +136,42 @@ function StaffCard({ member, active, onClick }: { member: typeof STAFF[0]; activ
 
       <div
         style={{
-          width: 80, height: 80, borderRadius: "50%", marginBottom: 36,
-          display: "flex", alignItems: "center", justifyContent: "center",
+          width: 80,
+          height: 80,
+          borderRadius: "50%",
+          marginBottom: 36,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           background: lit ? GOLD_A(0.12) : "rgba(255,255,255,0.04)",
           border: `1px solid ${lit ? GOLD_A(0.35) : "rgba(255,255,255,0.08)"}`,
           transition: "all 0.22s",
+          overflow: "hidden", // important for circular images
         }}
       >
-        <span className="fd" style={{ fontSize: 28, fontWeight: 700, color: lit ? GOLD : "rgba(255,255,255,0.25)", transition: "color 0.22s" }}>
-          {member.name.charAt(0)}
-        </span>
+        {member.icon ? (
+          <img
+            src={member.icon}
+            alt={member.name}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        ) : (
+          <span
+            className="fd"
+            style={{
+              fontSize: 28,
+              fontWeight: 700,
+              color: lit ? GOLD : "rgba(255,255,255,0.25)",
+              transition: "color 0.22s",
+            }}
+          >
+            {member.name.charAt(0)}
+          </span>
+        )}
       </div>
 
       <div className="fb" style={{
