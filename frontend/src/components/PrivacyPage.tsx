@@ -4,7 +4,7 @@ import { Footer } from "./Footer";
 import useSEO from "../hooks/useSEO";
 
 const LAST_UPDATED = "8 April 2026";
-const CONTACT_EMAIL = "contact@takeyourthrone.gg";
+const CONTACT_EMAIL = "TYTgaming2025@gmail.com";
 
 interface SectionProps {
   title: string;
