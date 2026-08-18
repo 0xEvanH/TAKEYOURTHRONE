@@ -1,15 +1,15 @@
 import { type CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { GOLD, PURPLE, GOLD_A } from "../constants";
+import { GOLD, PURPLE, GOLD_A, GOLD_GLOW, EASE_SIGNATURE } from "../constants";
 
-const gridPattern = `linear-gradient(${GOLD_A(0.045)} 1px,transparent 1px),linear-gradient(90deg,${GOLD_A(0.045)} 1px,transparent 1px)`;
+const bracketGlow: CSSProperties = { filter: `drop-shadow(0 0 8px ${GOLD_A(0.35)})` };
 
 const bracketPositions: CSSProperties[] = [
-  { top: 76, left: 40, borderTop: `1.5px solid ${GOLD_A(0.35)}`, borderLeft: `1.5px solid ${GOLD_A(0.35)}` },
-  { top: 76, right: 40, borderTop: `1.5px solid ${GOLD_A(0.35)}`, borderRight: `1.5px solid ${GOLD_A(0.35)}` },
-  { bottom: 52, left: 40, borderBottom: `1.5px solid ${GOLD_A(0.35)}`, borderLeft: `1.5px solid ${GOLD_A(0.35)}` },
-  { bottom: 52, right: 40, borderBottom: `1.5px solid ${GOLD_A(0.35)}`, borderRight: `1.5px solid ${GOLD_A(0.35)}` },
+  { top: 76, left: 40, borderTop: `1.5px solid ${GOLD_A(0.35)}`, borderLeft: `1.5px solid ${GOLD_A(0.35)}`, ...bracketGlow },
+  { top: 76, right: 40, borderTop: `1.5px solid ${GOLD_A(0.35)}`, borderRight: `1.5px solid ${GOLD_A(0.35)}`, ...bracketGlow },
+  { bottom: 52, left: 40, borderBottom: `1.5px solid ${GOLD_A(0.35)}`, borderLeft: `1.5px solid ${GOLD_A(0.35)}`, ...bracketGlow },
+  { bottom: 52, right: 40, borderBottom: `1.5px solid ${GOLD_A(0.35)}`, borderRight: `1.5px solid ${GOLD_A(0.35)}`, ...bracketGlow },
 ];
 
 export function NotFoundPage() {
@@ -28,15 +28,6 @@ export function NotFoundPage() {
         justifyContent: "center",
       }}
     >
-      {/* Grid overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: gridPattern,
-          backgroundSize: "72px 72px",
-        }}
-      />
-
       {/* Radial glow — bottom left, matching Hero */}
       <div
         className="absolute pointer-events-none"
@@ -79,6 +70,7 @@ export function NotFoundPage() {
             borderRadius: "50%",
             background: GOLD,
             display: "block",
+            boxShadow: GOLD_GLOW(0.6),
           }}
         />
         <span
@@ -109,10 +101,11 @@ export function NotFoundPage() {
           style={
             {
               fontSize: "clamp(200px,28vw,420px)",
-              fontWeight: 700,
-              WebkitTextStroke: `1.5px ${GOLD_A(0.07)}`,
+              fontWeight: 900,
+              WebkitTextStroke: `1.5px ${GOLD_A(0.16)}`,
               WebkitTextFillColor: "transparent",
               letterSpacing: "0.04em",
+              filter: `drop-shadow(0 0 40px ${GOLD_A(0.12)})`,
             } as CSSProperties
           }
         >
@@ -146,7 +139,7 @@ export function NotFoundPage() {
             letterSpacing: "0.4em",
           }}
         >
-          Error — Page not found
+          Error. Page not found
         </motion.p>
 
         {/* Headline */}
@@ -155,7 +148,7 @@ export function NotFoundPage() {
             className="fd"
             initial={{ y: "110%" }}
             animate={{ y: 0 }}
-            transition={{ delay: 0.4, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.4, duration: 0.9, ease: EASE_SIGNATURE }}
             style={{
               color: "#fff",
               fontWeight: 700,
@@ -173,7 +166,7 @@ export function NotFoundPage() {
             className="fs"
             initial={{ y: "110%" }}
             animate={{ y: 0 }}
-            transition={{ delay: 0.55, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.55, duration: 0.9, ease: EASE_SIGNATURE }}
             style={
               {
                 display: "block",

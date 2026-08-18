@@ -1,15 +1,18 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { GOLD } from "../constants";
+import { GOLD, EASE_SIGNATURE } from "../constants";
 import { useFeed, timeAgo, type FeedPost } from "../hooks/UseFeed";
-import { PageHero } from "./UI";
+import { PageHero, GlowButton } from "./UI";
 import { Footer } from "./Footer";
 import { SiX } from "react-icons/si";
 import useSEO from "../hooks/useSEO";
 
+const LIVE_COLOR = "#34d399";
+const ERROR_COLOR = "#f87171";
+
 function Skeleton() {
   return (
-    <div style={{ border: "1px solid rgba(255,255,255,0.07)", background: "#111" }}>
+    <div className="glass-card" style={{ overflow: "hidden" }}>
       <div style={{ aspectRatio: "16/9", background: "rgba(255,255,255,0.04)" }} />
       <div style={{ padding: "18px 20px 16px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
@@ -34,21 +37,15 @@ function PostCard({ post, i, visible }: { post: FeedPost; i: number; visible: bo
       href={post.url}
       target="_blank"
       rel="noopener noreferrer"
+      className="glass-card"
       initial={{ opacity: 0, y: 28 }}
       animate={visible ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: i * 0.05, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      style={{ border: "1px solid rgba(255,255,255,0.07)", background: "#111", textDecoration: "none", display: "block" }}
-      whileHover={{ y: -3, transition: { duration: 0.2 } }}
+      transition={{ delay: i * 0.05, duration: 0.5, ease: EASE_SIGNATURE }}
+      style={{ textDecoration: "none", display: "block", overflow: "hidden" }}
     >
       {post.image && (
         <div style={{ position: "relative", overflow: "hidden", aspectRatio: "16/9" }}>
-          <img
-            src={post.image}
-            alt=""
-            style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(25%)", transition: "all 0.4s" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.filter = "grayscale(0%)"; (e.currentTarget as HTMLImageElement).style.transform = "scale(1.03)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.filter = "grayscale(25%)"; (e.currentTarget as HTMLImageElement).style.transform = "scale(1)"; }}
-          />
+          <img src={post.image} alt="" className="post-img" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
         </div>
       )}
 
@@ -111,7 +108,7 @@ export function NewsPage() {
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             {status === "ok" && (
               <>
-                <span className="pdot" style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e", display: "block", flexShrink: 0 }} />
+                <span className="pdot" style={{ width: 6, height: 6, borderRadius: "50%", background: LIVE_COLOR, boxShadow: `0 0 12px -1px ${LIVE_COLOR}`, display: "block", flexShrink: 0 }} />
                 <span className="fb" style={{ color: "rgba(255,255,255,0.3)", fontSize: 10, letterSpacing: "0.2em" }}>LIVE</span>
               </>
             )}
@@ -119,7 +116,7 @@ export function NewsPage() {
               <span className="fb" style={{ color: "rgba(255,255,255,0.3)", fontSize: 10, letterSpacing: "0.2em" }}>LOADING...</span>
             )}
             {status === "error" && (
-              <span className="fb" style={{ color: "#ef4444", fontSize: 10, letterSpacing: "0.2em" }}>FEED UNAVAILABLE</span>
+              <span className="fb" style={{ color: ERROR_COLOR, fontSize: 10, letterSpacing: "0.2em" }}>FEED UNAVAILABLE</span>
             )}
             {fetchedAt && status === "ok" && (
               <span className="fb" style={{ color: "rgba(255,255,255,0.18)", fontSize: 9.5 }}>
@@ -128,15 +125,9 @@ export function NewsPage() {
             )}
           </div>
 
-          <button
-            onClick={refresh}
-            className="fb"
-            style={{ color: "rgba(255,255,255,0.3)", background: "transparent", border: "1px solid rgba(255,255,255,0.1)", cursor: "pointer", padding: "6px 14px", fontSize: 9.5, letterSpacing: "0.2em", textTransform: "uppercase", transition: "all 0.2s" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "#fff"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.3)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.3)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.1)"; }}
-          >
+          <GlowButton variant="ghost" onClick={refresh} style={{ padding: "8px 16px", fontSize: 9.5 }}>
             ↻ REFRESH
-          </button>
+          </GlowButton>
         </div>
 
         {status === "error" && posts.length === 0 && (

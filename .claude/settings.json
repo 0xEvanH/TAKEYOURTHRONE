@@ -1,0 +1,48 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git checkout *)",
+      "Bash(find / -path \"*claude/bundled-skills*run*examples/playwright.md\" 2>/dev/null | head -3)",
+      "Read(//c//**)",
+      "Bash(chromium-cli --help)",
+      "Bash(node -e \"console.log\\(require.resolve\\('playwright'\\)\\)\")",
+      "Bash(npx --version)",
+      "Bash(npm ls *)",
+      "Bash(mkdir -p \"C:\\\\Users\\\\bark4\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-bark4-Documents-Websites-takeyourthrone\\\\07bb8731-21f9-4cbc-a69a-8ace80b91d47\\\\scratchpad\\\\shots\")",
+      "Bash(node shots.js)",
+      "Bash(mv shots.js shots.cjs)",
+      "Bash(node shots.cjs)",
+      "Bash(lsof -ti:5183 -sTCP:LISTEN)",
+      "Bash(xargs -r kill)",
+      "Bash(netstat -ano)",
+      "PowerShell(Stop-Process -Id 30652 -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-NetTCPConnection -LocalPort 5183 -ErrorAction SilentlyContinue)",
+      "Bash(curl -sf http://localhost:5183)",
+      "Bash(rm -rf \"C:\\\\Users\\\\bark4\\\\node_modules\\\\playwright\" && echo \"removed\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\bark4\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-bark4-Documents-Websites-takeyourthrone\\\\07bb8731-21f9-4cbc-a69a-8ace80b91d47\\\\scratchpad\\\\shots2\")",
+      "Bash(PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install playwright --no-save --silent)",
+      "Bash(node shots2.cjs)",
+      "Bash(node check-li.cjs)",
+      "Bash(awk '{print $NF}')",
+      "PowerShell(Stop-Process -Id 19484 -Force -ErrorAction SilentlyContinue)",
+      "Bash(python3 -c \"import PIL; print\\('pillow ok'\\)\")",
+      "Bash(python -c \"import PIL; print\\('pillow ok'\\)\")",
+      "Bash(pip show *)",
+      "Bash(node rasterize-icons.cjs)",
+      "Bash(mkdir -p \"C:\\\\Users\\\\bark4\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-bark4-Documents-Websites-takeyourthrone\\\\07bb8731-21f9-4cbc-a69a-8ace80b91d47\\\\scratchpad\\\\shots3\")",
+      "Bash(node shots3.cjs)",
+      "PowerShell(Stop-Process -Id 19248 -Force -ErrorAction SilentlyContinue)",
+      "Bash(mkdir -p \"C:\\\\Users\\\\bark4\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-bark4-Documents-Websites-takeyourthrone\\\\07bb8731-21f9-4cbc-a69a-8ace80b91d47\\\\scratchpad\\\\diag\")",
+      "Bash(node diagnose.cjs)",
+      "Bash(node diagnose2.cjs)",
+      "Bash(node -e ' *)",
+      "Bash(node recheck.cjs)",
+      "Bash(node scroll-test.cjs)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(node scroll-test2.cjs)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\bark4\\node_modules\\playwright"
+    ]
+  }
+}
