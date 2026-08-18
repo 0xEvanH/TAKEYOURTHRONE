@@ -1,22 +1,32 @@
-import { GOLD } from "../constants";
+import { GOLD, GOLD_A, DISCORD_URL } from "../constants";
 import { LogoMark } from "./UI";
-import { SiX } from "react-icons/si";
+import { SiX, SiDiscord } from "react-icons/si";
 import { Link } from "react-router-dom";
 
 const navCols: { title: string; items: [string, string | null][] }[] = [
   { title: "NAVIGATE", items: [["Home", "/"], ["Teams", "/teams"], ["News", "/news"], ["Shop", "/shop"], ["Partners", "/partners"]] },
-  { title: "FOLLOW", items: [["X / @tyt_esport", "https://x.com/tyt_esport"],] },
-  { title: "CONTACT", items: [["TYTgaming2025@gmail.com", "mailto:TYTgaming2025@gmail.com"]] },
+  { title: "FOLLOW", items: [["X / @tyt_esport", "https://x.com/tyt_esport"], ["Discord", DISCORD_URL]] },
+  { title: "CONTACT", items: [["TYTgaming2025@gmail.com", "mailto:TYTgaming2025@gmail.com"], ["Get in touch", "/contact"]] },
   { title: "LEGAL", items: [["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"]] },
 ];
 
 const socials = [
   { icon: SiX, url: "https://x.com/tyt_esport" },
+  { icon: SiDiscord, url: DISCORD_URL },
 ];
+
+// External hrefs render as plain <a>; react-router's <Link> intercepts
+// clicks and tries to resolve them as in-app routes, which silently breaks
+// for an absolute https:// href.
+const isExternal = (path: string) => /^https?:|^mailto:/.test(path);
 
 export function Footer() {
   return (
-    <footer style={{ background: "#060606", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "64px 80px 32px" }}>
+    <footer style={{ position: "relative", background: "#060606", padding: "64px 80px 32px", overflow: "hidden" }}>
+      <div
+        aria-hidden="true"
+        style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD_A(0.4)} 50%, transparent)` }}
+      />
       <div style={{ display: "flex", justifyContent: "space-between", gap: 48, flexWrap: "wrap", marginBottom: 48 }}>
         <div style={{ maxWidth: 260 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
@@ -28,37 +38,21 @@ export function Footer() {
           </p>
           <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
             {socials.map(({ icon: Icon, url }, i) => (
-              <a
-                key={i}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  width: 32,
-                  height: 32,
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  background: "transparent",
-                  color: "rgba(255,255,255,0.4)",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 14,
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor = GOLD;
-                  (e.currentTarget as HTMLAnchorElement).style.color = GOLD;
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,0.1)";
-                  (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.4)";
-                }}
-              >
+              <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="social-btn" style={{ cursor: "pointer" }}>
                 <Icon />
               </a>
             ))}
           </div>
+          <a
+            href={DISCORD_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost fb"
+            style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 16, padding: "9px 18px", fontSize: 9.5 }}
+          >
+            <SiDiscord size={13} />
+            JOIN DISCORD
+          </a>
         </div>
 
         <div style={{ display: "flex", gap: 56, flexWrap: "wrap" }}>
@@ -71,15 +65,21 @@ export function Footer() {
                 {col.items.map(([label, path]) => (
                   <li key={label} style={{ marginBottom: 7 }}>
                     {path ? (
-                      <Link
-                        to={path}
-                        className="fb"
-                        style={{ color: "rgba(255,255,255,0.3)", fontSize: 11.5, textDecoration: "none", transition: "color 0.2s" }}
-                        onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#fff"; }}
-                        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.3)"; }}
-                      >
-                        {label}
-                      </Link>
+                      isExternal(path) ? (
+                        <a
+                          href={path}
+                          target={path.startsWith("mailto:") ? undefined : "_blank"}
+                          rel="noopener noreferrer"
+                          className="fb footer-link"
+                          style={{ fontSize: 11.5, textDecoration: "none" }}
+                        >
+                          {label}
+                        </a>
+                      ) : (
+                        <Link to={path} className="fb footer-link" style={{ fontSize: 11.5, textDecoration: "none" }}>
+                          {label}
+                        </Link>
+                      )
                     ) : (
                       <span className="fb" style={{ color: "rgba(255,255,255,0.3)", fontSize: 11.5 }}>{label}</span>
                     )}
@@ -93,6 +93,15 @@ export function Footer() {
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 20, borderTop: "1px solid rgba(255,255,255,0.05)", flexWrap: "wrap", gap: 10 }}>
         <span className="fb" style={{ color: "rgba(255,255,255,0.2)", fontSize: 9.5 }}>© 2026 TAKE YOUR THRONE. ALL RIGHTS RESERVED.</span>
+        <a
+          href="https://x.com/synclairdesign"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fb footer-link"
+          style={{ fontSize: 9.5, textDecoration: "none" }}
+        >
+          Created by @synclairdesign
+        </a>
       </div>
     </footer>
   );

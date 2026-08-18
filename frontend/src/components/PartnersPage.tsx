@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { GOLD, PURPLE, GOLD_A } from "../constants";
+import { GOLD, PURPLE, GOLD_A, GOLD_GLOW, EASE_SIGNATURE } from "../constants";
 import { PARTNER_TIERS } from "../data";
-import { PageHero, SectionLabel } from "./UI";
+import { PageHero } from "./UI";
+import { AmbientGradient } from "./AmbientGradient";
 import { Footer } from "./Footer";
 import latency from "/paragon.jpg";
 import useSEO from "../hooks/useSEO";
@@ -36,11 +37,8 @@ export function PartnersPage() {
         sub="We collaborate with the best in gaming, technology, and performance to give our players every possible edge."
       />
 
-      <div style={{ background: "#090909", paddingTop: 72, paddingBottom: 88 }}>
-        <div style={{ padding: "0 80px", marginBottom: 60, textAlign: "center" }}>
-          <SectionLabel text="All Partners" />
-        </div>
-
+      <div style={{ position: "relative", zIndex: 0, background: "#090909", paddingTop: 72, paddingBottom: 88, overflow: "hidden" }}>
+        <AmbientGradient variant="corner" />
         {/* Updated Container: Flex Wrap & Centered */}
         <div 
           ref={rowRef} 
@@ -63,15 +61,15 @@ export function PartnersPage() {
               style={{ textDecoration: "none" }}
             >
               <motion.div
+                className="glass-card"
                 initial={{ opacity: 0, y: 24 }}
                 animate={rowVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{
                   delay: i * 0.07,
                   duration: 0.55,
-                  ease: [0.22, 1, 0.36, 1]
+                  ease: EASE_SIGNATURE
                 }}
                 style={{
-                  background: "#0f0f0f",
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
@@ -81,14 +79,7 @@ export function PartnersPage() {
                   // Dynamic width to make Title Partner stand out
                   width: p.tier === "TITLE PARTNER" ? 460 : 360,
                   borderTop: `3px solid ${topBorderColor(p.tier)}`,
-                  borderBottom: "3px solid transparent",
-                  transition: "all 0.2s",
                 }}
-                whileHover={{
-                  backgroundColor: `${GOLD}0a`,
-                  borderBottomColor: GOLD,
-                  scale: 1.02
-                } as any}
               >
                 <div
                   className="fb"
@@ -114,7 +105,8 @@ export function PartnersPage() {
                   marginBottom: 24,
                   background: p.tier === "TITLE PARTNER" ? GOLD_A(0.12) : "rgba(255,255,255,0.04)",
                   border: `1px solid ${p.tier === "TITLE PARTNER" ? GOLD_A(0.3) : "rgba(255,255,255,0.08)"}`,
-                  borderRadius: "8px"
+                  boxShadow: p.tier === "TITLE PARTNER" ? GOLD_GLOW(0.4) : "none",
+                  borderRadius: "10px"
                 }}>
                   <img src={latency} alt={p.name} style={{ maxWidth: "70%", maxHeight: "70%", objectFit: "contain" }} />
                 </div>

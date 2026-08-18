@@ -25,7 +25,7 @@ const setMeta = (name: string, content: string, attr = 'name') => {
 
 const useSEO = ({ title, description, url, image, type = 'website' }: SEOProps = {}) => {
   useEffect(() => {
-    const fullTitle = title ? `${title} — ${SITE_NAME}` : SITE_NAME;
+    const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
     const desc      = description ?? DEFAULT_DESC;
     const canonical = url ? `${BASE_URL}${url}` : BASE_URL;
     const img       = image ?? DEFAULT_IMG;

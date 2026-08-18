@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { GOLD, GOLD_A } from "../constants";
+import { GOLD, GOLD_A, GOLD_GLOW, EASE_SIGNATURE } from "../constants";
 import { NAV_ITEMS } from "../data";
-import { LogoMark } from "./UI";
+import { LogoMark, IndexBadge } from "./UI";
 
 const routeMap: Record<string, string> = {
   home: "/",
@@ -16,7 +16,10 @@ const routeMap: Record<string, string> = {
 
 const pageFromPath = (path: string) => {
   const entry = Object.entries(routeMap).find(([, route]) => route === path);
-  return entry ? entry[0] : "home";
+  // No match (e.g. /privacy, /terms, 404) → no nav item should read as
+  // active. Falling back to "home" here was making HOME light up on
+  // routes that aren't Home.
+  return entry ? entry[0] : "";
 };
 
 interface NavBarProps {
@@ -49,10 +52,12 @@ export function NavBar({ menuOpen, setMenuOpen, isMobile }: NavBarProps) {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "0 24px",
-        background: active ? "rgba(8,8,8,0.97)" : "transparent",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
-        backdropFilter: active ? "blur(16px)" : "none",
-        transition: "all 0.3s",
+        background: active ? "rgba(8,8,8,0.72)" : "transparent",
+        borderBottom: scrolled ? `1px solid ${GOLD_A(0.15)}` : "1px solid transparent",
+        boxShadow: scrolled ? `0 12px 32px -16px ${GOLD_A(0.35)}` : "none",
+        backdropFilter: active ? "blur(20px)" : "none",
+        WebkitBackdropFilter: active ? "blur(20px)" : "none",
+        transition: "all 0.3s cubic-bezier(0.22,1,0.36,1)",
       }}
     >
       <button
@@ -85,20 +90,14 @@ export function NavBar({ menuOpen, setMenuOpen, isMobile }: NavBarProps) {
                 onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLButtonElement).style.color = "#fff"; }}
                 onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.55)"; }}
               >
-                <span
-                  style={{
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    width: 18, height: 18, fontSize: 8.5, fontFamily: "monospace",
-                    border: `1px solid ${isActive ? GOLD_A(0.6) : "rgba(255,255,255,0.18)"}`,
-                    color: isActive ? GOLD : "rgba(255,255,255,0.3)",
-                    borderRadius: 3, flexShrink: 0,
-                  }}
-                >
-                  {key}
-                </span>
+                <IndexBadge active={isActive}>{key}</IndexBadge>
                 {label}
                 {isActive && (
-                  <span style={{ position: "absolute", bottom: -1, left: 12, right: 12, height: 1, background: GOLD }} />
+                  <motion.span
+                    layoutId="nav-underline"
+                    transition={{ duration: 0.35, ease: EASE_SIGNATURE }}
+                    style={{ position: "absolute", bottom: -1, left: 12, right: 12, height: 2, borderRadius: 2, background: GOLD, boxShadow: GOLD_GLOW(0.6) }}
+                  />
                 )}
               </button>
             );
@@ -153,7 +152,7 @@ export function MobileMenu({ open, setMenuOpen }: MobileMenuProps) {
           initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
           animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
           exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.4, ease: EASE_SIGNATURE }}
           style={{
             position: "fixed", inset: 0, zIndex: 40,
             background: "#070707", display: "flex", flexDirection: "column",
@@ -176,15 +175,7 @@ export function MobileMenu({ open, setMenuOpen }: MobileMenuProps) {
                     textAlign: "left", border: 0, borderBottom: "1px solid rgba(255,255,255,0.05)",
                   }}
                 >
-                  <span style={{
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    width: 26, height: 26, fontSize: 10, fontFamily: "monospace",
-                    border: `1px solid ${isActive ? GOLD : "rgba(255,255,255,0.15)"}`,
-                    color: isActive ? GOLD : "rgba(255,255,255,0.3)",
-                    borderRadius: 2, flexShrink: 0,
-                  }}>
-                    {key}
-                  </span>
+                  <IndexBadge active={isActive} size={26}>{key}</IndexBadge>
                   <span className="fd" style={{ fontSize: 36, fontWeight: 700, letterSpacing: "0.05em", color: isActive ? GOLD : "rgba(255,255,255,0.85)" }}>
                     {label}
                   </span>
@@ -206,8 +197,7 @@ export function MobileMenu({ open, setMenuOpen }: MobileMenuProps) {
             >
               VISIT SHOP →
             </button>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 20 }}>
-              <span className="pdot" style={{ width: 6, height: 6, borderRadius: "50%", background: GOLD, display: "block" }} />
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: 20 }}>
               <span className="fb" style={{ color: GOLD, fontSize: 9.5, letterSpacing: "0.22em" }}>SYSTEMS OPERATIONAL</span>
             </div>
           </motion.div>
